@@ -21,18 +21,23 @@ class _UniButtonGroupState extends State<UniButtonGroup> {
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: widget.showScrollbar),
-      child: widget.axis == Axis.horizontal ? buildHorizontalLayout() : buildVerticalLayout(),
+      behavior: ScrollConfiguration.of(context)
+          .copyWith(scrollbars: widget.showScrollbar),
+      child: widget.axis == Axis.horizontal
+          ? buildHorizontalLayout()
+          : buildVerticalLayout(),
     );
   }
 
   buildHorizontalLayout() => SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: FlexWithSpace(axis: Axis.horizontal, children: widget.children).build(),
+        child: FlexWithSpace(axis: Axis.horizontal, children: widget.children)
+            .build(),
       );
 
   buildVerticalLayout() => SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: FlexWithSpace(axis: Axis.vertical, children: widget.children).build(),
+        child: FlexWithSpace(axis: Axis.vertical, children: widget.children)
+            .build(),
       );
 }

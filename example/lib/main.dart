@@ -27,7 +27,8 @@ class _MyAppState extends State<MyApp> {
           child: UniButtonGroup(
             children: [
               SelectedButton<ThemeMode>(
-                label: const Text('Light', style: TextStyle(color: Colors.white)),
+                label:
+                    const Text('Light', style: TextStyle(color: Colors.white)),
                 icon: const Icon(Icons.light_mode, color: Colors.white),
                 value: ThemeMode.light,
                 groupValue: _themeMode,
@@ -35,7 +36,8 @@ class _MyAppState extends State<MyApp> {
                 onPressed: (value) => _updateTheme(value),
               ),
               SelectedButton<ThemeMode>(
-                label: const Text('Dark', style: TextStyle(color: Colors.white)),
+                label:
+                    const Text('Dark', style: TextStyle(color: Colors.white)),
                 icon: const Icon(Icons.dark_mode, color: Colors.white),
                 value: ThemeMode.dark,
                 groupValue: _themeMode,
@@ -43,7 +45,8 @@ class _MyAppState extends State<MyApp> {
                 onPressed: (value) => _updateTheme(value),
               ),
               SelectedButton<ThemeMode>(
-                label: const Text('System', style: TextStyle(color: Colors.white)),
+                label:
+                    const Text('System', style: TextStyle(color: Colors.white)),
                 icon: const Icon(Icons.laptop, color: Colors.white),
                 value: ThemeMode.system,
                 groupValue: _themeMode,

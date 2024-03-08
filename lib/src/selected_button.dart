@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// Represents a selectable button with an icon and a label.
+///
+/// The button can be selected or unselected.
+/// The button is selectable if the [groupValue] is different from the [value].
 class SelectedButton<T> extends StatefulWidget {
   const SelectedButton({
     super.key,
@@ -26,28 +30,50 @@ class SelectedButton<T> extends StatefulWidget {
           'Cannot use boxShadows and syncBoxShadowsWithBorder at the same time.',
         );
 
+  // The icon and label of the button.
+  // They are in a row inside the button and are separated by [iconLabelDistance].
   final Widget icon;
   final Widget label;
 
+  // Generic value of the button.
+  // Comparing these values will determine if the button is selected or not.
   final T value;
   final T groupValue;
 
+  // Border color is updated when the button is selected.
   final Color borderColor;
+
+  // When the mouse is over the button, the background color is updated.
   final Color hoverColor;
   final Color backgroundColor;
+
+  // Highlighted border color when the button is selected.
   final Color selectedBorderColor;
 
+  // The border radius/width of the button.
   final double borderRadius;
   final double borderWidth;
+
+  // The width between the icon and the label.
   final double iconLabelDistance;
+
+  // The width and height of the button.
   final double width;
   final double height;
 
+  // The padding from the border to the content of the button.
   final EdgeInsets padding;
+
+  // The callback when the button is pressed.
   final Function(T)? onPressed;
+
+  // The box shadows of the button.
+  // If [syncBoxShadowsWithBorder] is true, the box shadows are synchronized with [borderColor]
   final List<BoxShadow>? boxShadows;
-  final Alignment alignment;
   final bool syncBoxShadowsWithBorder;
+
+  // How the icon and label are aligned inside the button.
+  final Alignment alignment;
 
   @override
   State<SelectedButton<T>> createState() => _SelectedButtonState<T>();
@@ -62,15 +88,17 @@ class _SelectedButtonState<T> extends State<SelectedButton<T>> {
   void initState() {
     super.initState();
     _backgroundColor = widget.backgroundColor;
-    _selectable = widget.groupValue != widget.value;
-    _borderColor = !_selectable ? widget.selectedBorderColor : widget.borderColor;
   }
 
   @override
   Widget build(BuildContext context) {
+    // other buttons than the selected one are selectable
     _selectable = widget.groupValue != widget.value;
-    _borderColor = !_selectable ? widget.selectedBorderColor : widget.borderColor;
-
+    // change the border color if the button is selected
+    _borderColor =
+        !_selectable ? widget.selectedBorderColor : widget.borderColor;
+    // on Desktop, change the background color when the mouse is over the button
+    // the cursor changes to a hand when the mouse is over the button
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (event) {
@@ -121,13 +149,12 @@ class _SelectedButtonState<T> extends State<SelectedButton<T>> {
     );
   }
 
+  // Change the state of the button and call the onPressed callback.
   void _onPressed() {
     if (!_selectable) {
       return;
     }
-    setState(() {
-      _borderColor = widget.selectedBorderColor;
-    });
+    setState(() {});
     if (widget.onPressed != null) {
       widget.onPressed!(widget.value);
     }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// Flex (Column/Row) with space between children.
 class FlexWithSpace {
+  // List children to be spaced.
   final List<Widget> children;
+  // Spacing between children.
   final double spacing;
+  // Axis of the flex.
   final Axis axis;
 
   const FlexWithSpace({
@@ -14,7 +18,8 @@ class FlexWithSpace {
 
   Widget build() {
     final isVertical = axis == Axis.vertical;
-    SizedBox sizedBox = isVertical ? SizedBox(height: spacing) : SizedBox(width: spacing);
+    SizedBox sizedBox =
+        isVertical ? SizedBox(height: spacing) : SizedBox(width: spacing);
     final spacedChildren = <Widget>[];
     for (int i = 0; i < children.length; i++) {
       spacedChildren.add(children[i]);
@@ -23,13 +28,13 @@ class FlexWithSpace {
       }
     }
     return isVertical
-      ? Column(
-          mainAxisSize: MainAxisSize.min,
-          children: spacedChildren,
-        )
-      : Row(
-          mainAxisSize: MainAxisSize.min,
-          children: spacedChildren,
-        );
+        ? Column(
+            mainAxisSize: MainAxisSize.min,
+            children: spacedChildren,
+          )
+        : Row(
+            mainAxisSize: MainAxisSize.min,
+            children: spacedChildren,
+          );
   }
 }
