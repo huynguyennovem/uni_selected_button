@@ -9,3 +9,8 @@
 ## 0.0.2
 
 * Add class docs
+
+## 0.0.3
+
+* Make mouse cursor to be customisable
+* Add selected background color

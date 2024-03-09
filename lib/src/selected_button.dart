@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// Represents a selectable button with an icon and a label.
 ///
@@ -15,6 +16,7 @@ class SelectedButton<T> extends StatefulWidget {
     this.hoverColor = Colors.black26,
     this.backgroundColor = Colors.black54,
     this.selectedBorderColor = Colors.cyan,
+    this.selectedBackgroundColor = Colors.cyan,
     this.borderRadius = 4.0,
     this.borderWidth = 1.4,
     this.iconLabelDistance = 4.0,
@@ -25,6 +27,7 @@ class SelectedButton<T> extends StatefulWidget {
     this.boxShadows,
     this.alignment = Alignment.center,
     this.syncBoxShadowsWithBorder = false,
+    this.mouseCursor = SystemMouseCursors.click,
   }) : assert(
           boxShadows == null || !syncBoxShadowsWithBorder,
           'Cannot use boxShadows and syncBoxShadowsWithBorder at the same time.',
@@ -49,6 +52,7 @@ class SelectedButton<T> extends StatefulWidget {
 
   // Highlighted border color when the button is selected.
   final Color selectedBorderColor;
+  final Color selectedBackgroundColor;
 
   // The border radius/width of the button.
   final double borderRadius;
@@ -75,6 +79,9 @@ class SelectedButton<T> extends StatefulWidget {
   // How the icon and label are aligned inside the button.
   final Alignment alignment;
 
+  // The cursor of the button.
+  final SystemMouseCursor mouseCursor;
+
   @override
   State<SelectedButton<T>> createState() => _SelectedButtonState<T>();
 }
@@ -83,32 +90,35 @@ class _SelectedButtonState<T> extends State<SelectedButton<T>> {
   late Color _backgroundColor;
   late Color _borderColor;
   late bool _selectable;
-
-  @override
-  void initState() {
-    super.initState();
-    _backgroundColor = widget.backgroundColor;
-  }
+  bool _isHovering = false;
 
   @override
   Widget build(BuildContext context) {
     // other buttons than the selected one are selectable
     _selectable = widget.groupValue != widget.value;
+
     // change the border color if the button is selected
     _borderColor =
-        !_selectable ? widget.selectedBorderColor : widget.borderColor;
+        _selectable ? widget.borderColor : widget.selectedBorderColor;
+
+    _backgroundColor = _isHovering
+        ? widget.hoverColor
+        : _selectable
+            ? widget.backgroundColor
+            : widget.selectedBackgroundColor;
+
     // on Desktop, change the background color when the mouse is over the button
     // the cursor changes to a hand when the mouse is over the button
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
+      cursor: widget.mouseCursor,
       onEnter: (event) {
         setState(() {
-          _backgroundColor = widget.hoverColor;
+          _isHovering = true;
         });
       },
       onExit: (event) {
         setState(() {
-          _backgroundColor = widget.backgroundColor;
+          _isHovering = false;
         });
       },
       child: GestureDetector(

@@ -4,18 +4,22 @@ import 'package:flutter/material.dart';
 class FlexWithSpace {
   // List children to be spaced.
   final List<Widget> children;
+
   // Spacing between children.
   final double spacing;
-  // Axis of the flex.
+
+  // It should be a Column or a Row only.
   final Axis axis;
 
   const FlexWithSpace({
     Key? key,
-    required this.axis,
     required this.children,
     this.spacing = 8.0,
+    this.axis = Axis.horizontal,
   });
 
+  // Loop through the children and add a SizedBox between them.
+  // If the axis is vertical, return a Column, else return a Row.
   Widget build() {
     final isVertical = axis == Axis.vertical;
     SizedBox sizedBox =
