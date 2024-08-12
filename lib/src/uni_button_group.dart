@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'flex_with_space.dart';
 
 /// Parent widget for a group of buttons.
 /// This organizes the buttons in a horizontal or vertical layout with [axis] parameter.
@@ -9,6 +8,7 @@ class UniButtonGroup extends StatefulWidget {
     required this.children,
     this.axis = Axis.horizontal,
     this.showScrollbar = false,
+    this.spacing = 8.0,
   });
 
   // The axis of the layout. It can be horizontal (Row) or vertical (Column).
@@ -20,6 +20,9 @@ class UniButtonGroup extends StatefulWidget {
   // By default, SingleChildScrollView will has a scrollbar.
   // Use this parameter to show or hide the scrollbar.
   final bool showScrollbar;
+
+  // Spacing between children.
+  final double spacing;
 
   @override
   State<UniButtonGroup> createState() => _UniButtonGroupState();
@@ -40,14 +43,12 @@ class _UniButtonGroupState extends State<UniButtonGroup> {
   // When the axis is horizontal, the buttons are organized in a row.
   buildHorizontalLayout() => SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: FlexWithSpace(axis: Axis.horizontal, children: widget.children)
-            .build(),
+        child: Row(spacing: widget.spacing, children: widget.children),
       );
 
   // When the axis is vertical, the buttons are organized in a column.
   buildVerticalLayout() => SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: FlexWithSpace(axis: Axis.vertical, children: widget.children)
-            .build(),
+        child: Column(spacing: widget.spacing, children: widget.children),
       );
 }

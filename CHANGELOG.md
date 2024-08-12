@@ -14,3 +14,9 @@
 
 * Make mouse cursor to be customisable
 * Add selected background color
+
+## 1.0.0
+
+* Release version 1.0.0
+* Replace FlexWithSpace with basic Column/Row since Flex.spacing is now supported
+* Add spacing to UniButtonGroup
